@@ -1,0 +1,87 @@
+<!-- <img src="assets/AP-SPLASH.png" class="bg" alt=""> -->
+<div class="bg">
+       
+</div>
+<div class="row">
+<div class="col">
+        <div class="logo-container">
+                <img src="assets/DTS-logo.png" class="logo">
+            </div>
+</div>
+</div>
+<div class="row">
+      
+    <div class="col container">
+    <mat-spinner style="margin:0 auto;"  *ngIf="isAuthenticating"></mat-spinner>  
+    <mat-card class="loginBox"> 
+        <mat-toolbar class="example-full-width" color="primary">Please Sign in...</mat-toolbar>  
+        <form  #f="ngForm" >
+        
+            <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                <mat-icon matPrefix><fa-icon icon="user-circle"></fa-icon></mat-icon> 
+                <input matInput type="email" placeholder="Email" name="email" 
+                 [(ngModel)]="logUser.email" class="form-control" [formControl]="emailFormControl" required>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+            </mat-form-field>       
+            </div> 
+            <div class="form-group">
+                <mat-form-field class="example-full-width">
+                    <mat-icon matPrefix><fa-icon icon="key"></fa-icon></mat-icon> 
+                    <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="logUser.password" class="form-control" required>
+                </mat-form-field>       
+                    
+            </div>
+                <button [disabled]="!f.form.valid"  
+                mat-raised-button color="primary"  class="example-full-width" (click)="login()">Login</button>
+            
+            </form>
+    </mat-card>  
+
+           
+    </div>
+</div>
+
+
+
+<!-- <mat-card class="loginBox"> 
+
+<mat-card-content>
+
+<form  #f="ngForm" >
+<mat-toolbar color="primary"> 
+   <span>
+        Agri-Presyo System
+       
+   </span>          
+</mat-toolbar>
+        <div class="form-group">
+    <mat-form-field class="example-full-width">
+    <mat-icon matPrefix><fa-icon icon="user-circle"></fa-icon></mat-icon> 
+    <input matInput placeholder="Username" name="username"  [(ngModel)]="logUser.username" class="form-control" required>
+    </mat-form-field>       
+</div> 
+<div class="form-group">
+    <mat-form-field class="example-full-width">
+        <mat-icon matPrefix><fa-icon icon="key"></fa-icon></mat-icon> 
+        <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="logUser.password" class="form-control" required>
+    </mat-form-field>       
+
+</div>
+            
+    <button [disabled]="!f.form.valid"  
+    mat-raised-button color="primary"  class="example-full-width" (click)="login()">Login</button>
+            
+        </form>
+    </mat-card-content>
+    
+</mat-card>  -->
+       
+       
+       
+
+      
+
+

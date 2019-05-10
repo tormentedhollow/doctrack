@@ -1,0 +1,110 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="main-heading">My Documents</h1>
+      </div>
+    </div>
+    <div class="row">
+ 
+        <div class="col-md-6">
+            <h2>Your Purchase Request Document</h2>
+            <mat-card *ngFor="let doc of docs" [ngClass]="routeAnimationsElements"
+            (click)="select(doc.id)">
+            <h3>{{doc.purpose}}</h3>
+            <small>{{doc.id}}</small>
+           </mat-card>
+            <p *ngIf="docs.length === 0">Looks like you don't have any purchase request documents, let's add some!</p>
+            <button type="button" mat-fab color="primary" class="add" [ngClass]="routeAnimationsElements"
+            *ngIf="!isEditing" (click)="addNew(docForm)" data-testid="add-crud">
+            <fa-icon icon="plus"></fa-icon>
+          </button>
+          
+
+        </div>
+        <div class="col-md-6">
+            <h2>Purchase Request Document Editor</h2>
+            <form #docForm="ngForm" [formGroup]="docFormGroup" [style.display]="isEditing ? 'block' : 'none'"
+            [ngClass]="routeAnimationsElements">  
+            <div class="row">
+              <mat-form-field class="col">
+                <input matInput placeholder="Item Description" formControlName="name">
+       
+              </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="col-md-4">
+                  <input matInput placeholder="Unit" formControlName="unit">
+         
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                    <input matInput type="number" placeholder="Quantity" formControlName="qty">
+           
+                  </mat-form-field>
+                  <mat-form-field class="col-md-4">
+                      <input matInput type="number" placeholder="Unit Cost" formControlName="cost">
+             
+                    </mat-form-field>
+              </div>
+              <div class="row">
+                  <span class="d-flex justify-content-end">
+                <button mat-icon-button color="accent" >
+                  <fa-icon icon="plus" (click)="addItem()" matTooltip="add item"
+                    matTooltipPosition="above">
+                  </fa-icon>
+                </button>
+          
+      
+                  </span>
+              </div>
+            <div class="row">
+                <mat-form-field class="col">
+                  <textarea matInput placeholder="Purpose"
+                    formControlName="purpose" rows="3"></textarea>
+                  <mat-error *ngIf="docFormGroup.get('purpose').invalid">
+                      Purpose is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-between">
+                <button (click)="save()" mat-raised-button color="primary">SAVE</button>
+                <button (click)="cancelEditing()" mat-raised-button>CANCEL</button>
+              </div>
+            </div>
+          </form>
+     
+          <div [ngClass]="routeAnimationsElements" *ngIf="!isEditing && selectedDoc">
+              <h3>{{ selectedDoc.purpose }}</h3>
+              <mat-card  [ngClass]="routeAnimationsElements">
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Unit</th>
+                          <th scope="col">item Description</th>
+                          <th scope="col">Qty</th>
+                          <th scope="col">Unit Cost</th>
+                          <th scope="col">Total Cost</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of selectedDoc.items">
+                          <th scope="row">{{item.unit}}</th>
+                          <td>{{item.name}}</td>
+                          <td>{{item.qty}}</td>
+                          <td>{{item.cost}}</td>
+                          <td>{{item.cost * item.qty}}</td>
+                        </tr>
+               
+                      </tbody>
+                    </table>
+             </mat-card>
+             <button type="button" mat-fab color="accent" class="add" (click)="generate()"
+             [ngClass]="routeAnimationsElements">
+                <fa-icon icon="print" matTooltip="GENERATE PR"
+                matTooltipPosition="above"></fa-icon>
+              </button>
+            </div>
+      
+        </div>
+    </div>
+</div>
